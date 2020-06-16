@@ -1,5 +1,7 @@
 package org.launchcode.techjobs_oo;
 
+import java.util.Objects;
+
 public class Job {
 
     private int id;
@@ -28,30 +30,19 @@ public class Job {
             this.coreCompetency = coreCompetency;
     }
 
-    @Override
-    public String toString() {
-        return "Job{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", employer=" + employer +
-                ", location=" + location +
-                ", positionType=" + positionType +
-                ", coreCompetency=" + coreCompetency +
-                '}';
-    }
     // TODO: Add custom equals and hashCode methods. Consider two Job objects "equal" when their id fields
     //  match.
 
-    public boolean equals(Object object) {
-        if (this == object) return true;
-        if (object == null || getClass() != object.getClass()) return false;
-        if (!super.equals(object)) return false;
-        Job job = (Job) object;
-        return id == job.id;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if(o == null || getClass() != o.getClass()) return false;
+        Job job = (Job) o;
+        return id == job.getId();
     }
-
+    @Override
     public int hashCode() {
-        return java.util.Objects.hash(super.hashCode(), id);
+        return Objects.hash(id);
     }
 
 
@@ -101,5 +92,23 @@ public class Job {
 
     public void setCoreCompetency(CoreCompetency coreCompetency) {
         this.coreCompetency = coreCompetency;
+    }
+
+
+    @Override
+    public String toString() {
+        String jobObj;
+        if(this.getName() == null || this.getEmployer() == null || this.getLocation() == null || this.getPositionType() == null || this.getCoreCompetency() == null){
+            return "OOPS! This job does not seem to exist";
+        }else {
+            jobObj =
+                            "ID:" + this.getId() + "\n" +
+                            "Name:'" + this.getName() + '\'' + "\n" +
+                            "Employer:" + this.getEmployer().getValue() + "\n" +
+                            "Location:" + this.getLocation().getValue() + "\n" +
+                            "Position Type:" + this.getPositionType().getValue() + "\n" +
+                            "Core Competency:" + this.getCoreCompetency().getValue() + "\n";
+            return jobObj;
+        }
     }
 }
